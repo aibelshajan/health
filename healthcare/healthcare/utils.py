@@ -686,7 +686,9 @@ def get_drugs_to_invoice(encounter):
 				for medication_request in medication_requests:
 					if medication_request.medication:
 						is_billable = frappe.get_cached_value(
-							"Medication", medication_request.medication, ["is_billable"]
+							"Medication Linked Item",
+							{"parent": medication_request.medication, "item": medication_request.medication_item},
+							"is_billable",
 						)
 					else:
 						is_billable = frappe.db.exists(
